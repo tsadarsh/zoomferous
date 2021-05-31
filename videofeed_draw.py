@@ -53,10 +53,10 @@ class Freecom:
 				mask_frame = self.show_masked(transform_frame)
 				cv.imshow('masked', mask_frame)
 			if cv.waitKey(1) == ord('q'):
-				self.stop_cam
+				self.stop_cam(cap)
 				break
 
-	def stop_cam(self):
+	def stop_cam(self, cap):
 		cap.release()
 		cv.destroyAllWindows()
 

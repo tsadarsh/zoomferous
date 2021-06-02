@@ -19,8 +19,8 @@ class App:
 		while True:
 			self.frame = self.read_from_camera(cap)
 			cv.imshow('frame', self.frame)
-			self.show_green_only(self.frame)
-			self.set_mouse_event()
+			self.show_masked_frame(self.frame)
+			#self.set_mouse_event()
 
 	def stop_camera(self, cap):
 		cap.release()
@@ -39,7 +39,7 @@ class App:
 
 		return frame
 
-	def show_green_only(self, frame):
+	def show_masked_frame(self, frame):
 		hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
 
 		mask = cv.inRange(hsv, np.array(self.lower_color), np.array(self.upper_color))
@@ -51,14 +51,14 @@ class App:
 		cv.setMouseCallback('frame', self.get_color_from_click)
 
 	def get_color_from_click(self, event, x, y, flags, param):
-		if event == cv.EVENT_LBUTTONDBLCLK:
-			frame_as_list = self.frame[y, x].tolist()
+		if event == cv.EVENT_MBUTTONDBLCLK:
+			frame_as_list = param[0][y, x].tolist()
 			frame_in_hsv = cv.cvtColor(np.uint8([[frame_as_list]]), cv.COLOR_BGR2HSV)
 			self.ink_color = frame_in_hsv.tolist()[0][0]
 
 			self.lower_color[0] = (self.ink_color[0]-10) % 180
 			self.upper_color[0] = (self.ink_color[0]+10) % 180
-			print("setting", self.lower_color, "to", self.upper_color)
+			print("picking", self.lower_color, "to", self.upper_color, f"from {x}, {y}")
 
-app = App()
-app.start_camera()
+# app = App()
+# app.start_camera()

@@ -44,14 +44,13 @@ class App:
 
 		mask = cv.inRange(hsv, np.array(self.lower_color), np.array(self.upper_color))
 		masked_frame = cv.bitwise_and(frame, frame, mask=mask)
-		cv.imshow('mask', mask)
-		cv.imshow('color_masked_frame', masked_frame)
+		return mask, masked_frame
 
 	def set_mouse_event(self):
 		cv.setMouseCallback('frame', self.get_color_from_click)
 
 	def get_color_from_click(self, event, x, y, flags, param):
-		if event == cv.EVENT_MBUTTONDBLCLK:
+		if event == cv.EVENT_LBUTTONDBLCLK:
 			frame_as_list = param[0][y, x].tolist()
 			frame_in_hsv = cv.cvtColor(np.uint8([[frame_as_list]]), cv.COLOR_BGR2HSV)
 			self.ink_color = frame_in_hsv.tolist()[0][0]

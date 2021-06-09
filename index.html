@@ -1,2 +1,126 @@
-<h1>Hello World</h1>
-<h2>This is zoomferous</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mate+SC&family=Merriweather:ital,wght@0,700;1,400&display=swap');
+
+        html,body{
+            margin: 0px;
+            padding: 0px;
+        }
+        .container{
+            display: grid;
+            grid-template-rows: repeat(8,100px);
+            max-height: 100vmin;
+            max-width: 100vmax;
+        }
+        .top{
+            grid-row-start: 1;
+            grid-row-end: 7;
+            display: grid;
+            grid-template-rows: 75px 75px 100px 100px 150px;
+            width: 100vmax;
+            /* grid-template-columns: repeat(1,100vmax); */
+        }
+        #bg{
+            z-index: -2;
+            height: 100%;
+            width: 100%;
+            grid-row-start: 1;
+            grid-row-end: -1;
+            grid-column-end: 2;
+            opacity: 0.5;        
+        }
+        .logo{
+            /* width: 50px; */
+            height: 150px;
+            grid-row-start: 1;
+            grid-row-end: 3;
+            /* z-index: -1; */
+            grid-column-end: 2;        
+        }
+        .logo_span{
+            padding: 20px;
+        }
+        .nav{
+            grid-row-start: 2;
+            grid-row-end: 3;
+            justify-self: end;
+            grid-column-start: 1;
+            font-size: 20px;
+            grid-column-end: 2;   
+            background-color:rgba(0, 0, 0, 0.301);
+            height: 35px;
+            padding-top: 5px;    
+        }
+        a{
+            text-decoration: none;
+            padding: 20px;
+            padding-right: 50px;
+            font-family: 'Merriweather', serif;
+            font-weight: 300;
+            font-style: italic;
+            opacity: 1    !important; 
+            color: white;
+        }
+        a:hover{
+            font-family: 'Merriweather', serif;
+            /* font-weight: 700;
+            font-style: normal; */
+            color: black;
+        }
+        .heading{
+            grid-row-start: 3;
+            grid-row-end: 5;
+            font-family: 'Mate SC', serif;
+            /* font-size: 50px; */
+            text-align: center;
+            grid-column-start: 1;
+            
+        }
+        h1{
+            font-size: 100px;
+            padding-top: 15px;
+            margin-bottom:0px ;
+            
+        }
+        h3{
+            font-size:50px;
+            margin-top: 20px;
+        }
+        .bottom{
+            /* grid-row-start: 6; */
+            grid-row-end: -1;
+            background-image: linear-gradient(#fff, #000);
+            z-index: -3;
+            width: 100vmax;
+            height: 100vmin;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <img id="bg" src="./chese_cut.png"  alt="background">
+            <span class="logo logo_span"><img class="logo" src="./zoomferrous logo 1.2.png" alt="logo"></span>
+            <span class="nav">
+                <a href="#">Downloads</a>
+                <a href="#">Help</a>
+                <a href="#">About</a>
+            </span>
+            <span class="heading">
+                <h1>ZOOMFEROUS</h1>
+                <h3>Making Education Interactive</h3>
+            </span>
+        </div>
+        <div class="bottom">
+
+
+        </div>
+    </div>
+</body>
+</html>

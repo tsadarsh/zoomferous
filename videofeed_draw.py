@@ -30,6 +30,17 @@ class Freecom:
 
 		while True:
 			self.read_from_camera(cap)
+			self.check_for_quit_program(cap)
+
+	def check_for_quit_program(self, cap):
+		if cv.waitKey(1) == ord('q'):
+			if len(self.perspective_crop) == 4:
+				cv.destroyWindow('transformed')
+				cv.destroyWindow('mask')
+				self.perspective_crop = []
+				self.corner_points_overlay = self.create_blank_overlay(self.cam_height, self.cam_width)
+			else:
+				self.stop_camera(cap)
 
 	def read_from_camera (self, cap):
 		ret, frame = cap.read()
@@ -64,15 +75,6 @@ class Freecom:
 			cv.imshow('mask', mask)
 			param = [transform_frame]
 			cv.setMouseCallback('transformed', self.rgb_mask.get_color_from_click, param)
-
-		if cv.waitKey(1) == ord('q'):
-			if len(self.perspective_crop) == 4:
-				cv.destroyWindow('transformed')
-				cv.destroyWindow('mask')
-				self.perspective_crop = []
-				self.corner_points_overlay = self.create_blank_overlay(self.cam_height, self.cam_width)
-			else:
-				self.stop_camera(cap)
 
 	def stop_camera(self, cap):
 		cap.release()

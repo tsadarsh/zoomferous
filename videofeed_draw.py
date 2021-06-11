@@ -11,7 +11,7 @@ class Freecom:
 		self.cam_width = self.get_camera_width()
 		self.corner_points_cords = []
 		self.corner_points = self.create_blank_overlay(self.cam_height, self.cam_width)
-		self.masker = Mask_from_inv_ink_color()
+		self.masker = Mask_from_skimage()
 
 	def create_videocapture_object(self):
 		cap = cv.VideoCapture(self.cid)
@@ -75,7 +75,40 @@ class Freecom:
 		cv.imshow('mask', mask)
 		param = [transform_frame]
 
-class Mask_from_inv_ink_color():
+
+class Mask:
+	def __init__(self):
+		self.frame = None
+		self.ink_color = None
+
+	def get_color_from_click(self, event, x, y, flags, param):
+		frame_as_list = param[0][y, x].tolist()
+		frame_in_hsv = cv.cvtColor(np.uint8([[frame_as_list]]), cv.COLOR_BGR2HSV)
+		self.ink_color = frame_in_hsv.tolist()[0][0]
+
+
+class Mask_from_ink_color(Mask):
+	def __init__(self):
+		self.lower_color = [110,50,50]
+		self.upper_color = [130,255,255]
+
+	def get_color_from_click(self, event, x, y, flags, param):
+		if event == cv.EVENT_LBUTTONDBLCLK:
+			super().get_color_from_click(event, x, y, flags, param)
+
+			self.lower_color[0] = (self.ink_color[0]-10) % 180
+			self.upper_color[0] = (self.ink_color[0]+10) % 180
+			print("picking", self.lower_color, "to", self.upper_color, f"from {x}, {y}")
+
+	def show_masked_frame(self, frame):
+		hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
+
+		mask = cv.inRange(hsv, np.array(self.lower_color), np.array(self.upper_color))
+		masked_frame = cv.bitwise_and(frame, frame, mask=mask)
+
+		return mask, masked_frame
+
+class Mask_from_skimage(Mask):
 	def show_masked_frame(self, frame):
 		warped = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 

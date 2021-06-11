@@ -14,7 +14,7 @@ class Freecom:
 		self.cam_width = self.get_camera_width()
 		self.corner_points_cords = []
 		self.corner_points = self.create_blank_overlay(self.cam_height, self.cam_width)
-		self.masker = Mask_from_ink_color()
+		self.masker = Mask_from_inv_ink_color()
 
 	def create_videocapture_object(self):
 		cap = cv.VideoCapture(self.cid)
@@ -111,3 +111,17 @@ class Mask_from_ink_color(Mask):
 		masked_frame = cv.bitwise_and(frame, frame, mask=mask)
 
 		return mask, masked_frame
+
+
+class Mask_from_inv_ink_color(Mask):
+	def show_masked_frame(self, frame):
+	    hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
+
+	    l_b = np.array([0, 0, 0])
+	    u_b = np.array([255, 255, 99])
+
+	    mask = cv.inRange(hsv, l_b, u_b)
+
+	    res = cv.bitwise_and(frame, frame, mask=mask)
+
+	    return res, mask

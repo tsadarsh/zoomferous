@@ -7,6 +7,7 @@ from rgb_mask import App
 class Freecom:
 	def __init__(self, cid=0):
 		self.cid = cid
+		self.cap = None
 		self.cam_width = None
 		self.cam_height = None
 		self.frame = None
@@ -17,36 +18,34 @@ class Freecom:
 		self.corner_points_overlay = None
 		self.rgb_mask = App()
 
-	def start_cam(self):
-		cap = cv.VideoCapture(self.cid)
-		if not cap.isOpened():
+	def create_videocapture_object(self):
+		self.cap = cv.VideoCapture(self.cid)
+		if not self.cap.isOpened():
 			print("Cannot open camera")
 			exit()
 
-		self.cam_width = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
-		self.cam_height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+		self.cam_height = self.get_camera_height(self.cap)
+		self.cam_width = self.get_camera_width(self.cap)
 
 		self.corner_points_overlay = self.create_blank_overlay(self.cam_height, self.cam_width)
 
-		while True:
-			self.frame = self.read_from_camera(cap)
-			if len(self.perspective_crop) < 4:
-				self.selecting_corner_points()
-			else:
-				self.show_transformed_frame()
-			self.check_for_quit_program(cap)
+		return self.cap
 
-	def check_for_quit_program(self, cap):
-		if cv.waitKey(1) == ord('q'):
-			if len(self.perspective_crop) == 4:
-				cv.destroyWindow('transformed')
-				cv.destroyWindow('mask')
-				self.perspective_crop = []
-				self.corner_points_overlay = self.create_blank_overlay(self.cam_height, self.cam_width)
-			else:
-				self.stop_camera(cap)
+	def get_camera_height(self, cap):
+		return int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
 
-	def read_from_camera (self, cap):
+	def get_camera_width(self, cap):
+		return int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
+
+	def run_zoomferous(self, cap):
+		self.frame = self.get_camera_frame(cap)
+
+		if len(self.perspective_crop) < 4:
+			self.selecting_corner_points()
+		else:
+			self.show_transformed_frame()
+
+	def get_camera_frame(self, cap):
 		ret, frame = cap.read()
 
 		if not ret:
@@ -78,11 +77,6 @@ class Freecom:
 		cv.imshow('mask', mask)
 		param = [transform_frame]
 		cv.setMouseCallback('Zoomferous', self.rgb_mask.get_color_from_click, param)
-
-	def stop_camera(self, cap):
-		cap.release()
-		cv.destroyAllWindows()
-		exit()
 
 	def create_blank_overlay(self, height, width):
 		return np.zeros((height, width, 3), np.uint8)

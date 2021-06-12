@@ -1,6 +1,6 @@
 import numpy as np
 import cv2 as cv
-from skimage.filters import threshold_sauvola,threshold_local
+
 
 class Freecom:
 	def __init__(self, cid=0):
@@ -15,7 +15,6 @@ class Freecom:
 		self.corner_points_cords = []
 		self.corner_points = self.create_blank_overlay(self.cam_height, self.cam_width)
 		self.masker = Mask_from_ink_color()
-
 
 	def create_videocapture_object(self):
 		cap = cv.VideoCapture(self.cid)
@@ -96,7 +95,6 @@ class Mask_from_ink_color(Mask):
 	def __init__(self):
 		self.lower_color = [110,50,50]
 		self.upper_color = [130,255,255]
-		self.k=1.0
 
 	def get_color_from_click(self, event, x, y, flags, param):
 		if event == cv.EVENT_LBUTTONDBLCLK:
@@ -107,20 +105,9 @@ class Mask_from_ink_color(Mask):
 			print("picking", self.lower_color, "to", self.upper_color, f"from {x}, {y}")
 
 	def show_masked_frame(self, frame):
-		gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-		warped = cv.GaussianBlur(gray, (3, 3), 0)
-		T=threshold_local(warped,5,offset=self.k/100,method='gaussian')
-		# T = threshold_sauvola(warped,3,k=self.k/1000,r=None)
-		warped = (warped > T).astype("uint8") * 255
-		warped=cv.bitwise_not(warped)
-
 		hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
 
-		mask1 = cv.inRange(hsv, np.array(self.lower_color), np.array(self.upper_color))
-		masked_frame = cv.bitwise_and(frame, frame, mask=mask1)
-		return warped, masked_frame
-	def nothing(self,x):
-		self.k=x
+		mask = cv.inRange(hsv, np.array(self.lower_color), np.array(self.upper_color))
+		masked_frame = cv.bitwise_and(frame, frame, mask=mask)
 
-		
-	
+		return mask, masked_frame

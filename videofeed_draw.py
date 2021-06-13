@@ -1,6 +1,8 @@
 import numpy as np
 import cv2 as cv
 from skimage.filters import threshold_sauvola
+from skimage.filters.rank import core_cy_3d
+
 
 class Freecom:
 	def __init__(self, cid=0):
@@ -69,10 +71,10 @@ class Freecom:
 		pts2 = np.float32([[0, 0], [self.cam_width, 0], [0, self.cam_height], [self.cam_width, self.cam_height]])
 		transform_frame_matrix = cv.getPerspectiveTransform(pts1, pts2)
 		transform_frame = cv.warpPerspective(self.frame, transform_frame_matrix, (self.cam_width, self.cam_height))
-		cv.imshow('Zoomferous', transform_frame)
+		#cv.imshow('Zoomferous', transform_frame)
 
 		mask, color_masked = self.masker.show_masked_frame(transform_frame)
-		cv.imshow('mask', mask)
+		cv.imshow('Zoomferous', mask)
 		param = [transform_frame]
 
 

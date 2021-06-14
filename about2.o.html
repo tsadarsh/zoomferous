@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gentium+Basic:ital@0;1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap');
+        html,
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-rows: 20vmin 15vmin 65vmin;
+        }
+        
+        .bg {
+            width: 100vmax;
+            height: 110vmin;
+            z-index: -3;
+            grid-row-start: 1;
+            grid-column-start: 1;
+            opacity: .8;
+        }
+        
+        h1 {
+            font-size: 60px;
+            margin: 0px;
+            margin-top: 5vmin;
+            margin-left: 20%;
+            grid-row-start: 2;
+            grid-column-start: 1;
+            height: 70px;
+        }
+        
+        .line {
+            grid-row-start: 3;
+            grid-column-start: 1;
+            height: 3px;
+            width: 50%;
+            background-color: #111;
+            margin-bottom: 8%;
+            align-self: start;
+        }
+        
+        .content {
+            grid-row-end: -1;
+            grid-column-start: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 5vmin;
+        }
+        
+        p {
+            padding-left: 50px;
+            /* padding-right: 15%; */
+            font-size: 25px;
+            width: 50%;
+            margin-top: 0px;
+            font-family: 'Gentium Basic', serif;
+        }
+        
+        iframe {
+            margin-right: 50px;
+            height: 300px;
+        }
+        
+        .top {
+            grid-row-start: 1;
+            grid-column-start: 1;
+            z-index: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background-color: rgba(17, 17, 17, 0.233);
+            height: 170px;
+        }
+        
+        .logo {
+            width: 150px;
+            align-self: center;
+        }
+        
+        .logo_span {
+            padding-left: 40px;
+        }
+        
+        .nav_bar {
+            align-self: center;
+            background-color: rgba(17, 17, 17, 0.609);
+            color: #fff;
+            font-size: 20px;
+            padding: 15px;
+            font-family: 'Oxygen', sans-serif;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #fff;
+            padding-right: 60px;
+        }
+        
+        a:hover {
+            /* text-decoration: underline; */
+            font-weight: bold;
+            color: black;
+        }
+        
+        .abt {
+            color: #111;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="bg"><img class="bg" src="./mockaroon-YqUeLG7fMr4-unsplash (1).jpg" alt="background"></div>
+        <div class="top" id="top">
+            <span class="logo logo_span">
+                <a href="./home2.o.html">
+                    <img src="./zoomferrous logo 1.2.png" alt="logo" class="logo logo_img">
+                </a>
+            </span>
+
+            <span class="nav_bar">
+                <a href="#" class="nav dnw">
+                    Download
+                </a>
+                <a href="#" class="nav abt">
+                    About
+                </a>
+                <a href="./help2.0.html" class="nav hlp">
+                    Help
+                </a>
+            </span>
+        </div>
+        <h1>
+            About
+        </h1>
+        <div class="line"></div>
+
+        <div class="content">
+            <p class="about_content">
+                We bring to you a software which emulates blackboard writing, "Zoomferous". With no extra hardware this software uses the webcam of the device to read the content of paper/board/workspace and applies filters before presenting the masked content.
+                <br><br> The user brings the workspace which can be a notebook page, board, A4 paper in the view of a webcam. Next, the four corner points of the workspace are selected to crop the required portion. 2D perspective and affine transformation
+                transforms the quadrilateral workspace region to a square window.
+                <br><br> The transformed frame is now fed into an optimizer which enhances and removes the noise from the frame. Then we apply a dynamic filter which abstracts the given image into a binary mask making the data appear such that it would
+                be on a black board to the student. The filter removes the noise from the image and the result is a clean blackboard-like view.
+            </p>
+            <iframe height="480" width="580" src="https://www.youtube.com/embed/xKsz5qfVB2A" frameborder="0"></iframe>
+            </iframe>
+        </div>
+    </div>
+</body>
+
+</html>

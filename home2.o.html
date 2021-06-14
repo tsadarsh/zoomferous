@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Source+Serif+Pro:wght@300&display=swap');
+        html,
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-rows: 33vmin 43vmin 23vmin;
+        }
+        
+        .bg {
+            width: 100vmax;
+            height: 100vmin;
+            z-index: -3;
+            grid-row-start: 1;
+            grid-column-start: 1;
+        }
+        
+        .top {
+            grid-row-start: 1;
+            grid-column-start: 1;
+            z-index: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            width: 200px;
+            align-self: center;
+        }
+        
+        .logo_span {
+            padding-left: 50px;
+        }
+        
+        .nav_bar {
+            align-self: center;
+            background-color: rgba(17, 17, 17, 0.609);
+            color: #fff;
+            font-size: 30px;
+            padding: 20px;
+            font-family: 'Oxygen', sans-serif;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #fff;
+            padding-right: 60px;
+        }
+        
+        a:hover {
+            /* text-decoration: underline; */
+            font-weight: bold;
+            color: black;
+        }
+        
+        .dnw {
+            padding-left: 50px;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 120px;
+            margin: 10px;
+            font-family: 'Comfortaa', cursive;
+        }
+        
+        h4 {
+            text-align: center;
+            font-size: 60px;
+            margin: 10px;
+            font-family: 'Source Serif Pro', serif;
+        }
+        
+        .switch {
+            grid-row-start: 3;
+            grid-row-end: 4;
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            /* flex-direction: column; */
+            align-content: center;
+            /* justify-content: sp; */
+            font-family: 'Oxygen', sans-serif;
+        }
+        
+        .download,
+        .git {
+            /* justify-self: center; */
+            width: 200px;
+            height: 60px;
+            background-color: #fff;
+            justify-self: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 15px;
+            border-style: double;
+            border-width: 4px;
+            /* margin: 20px; */
+            /* grid-row-end: 4;
+            grid-column-end: 2; */
+        }
+        
+        .download {
+            background-color: rgba(49, 49, 49, 0.308);
+            /* color: #fff; */
+        }
+        
+        h6 {
+            font-size: 25px;
+            margin: 0px;
+            padding-left: 20px;
+        }
+        
+        .downloadlogo,
+        .gitlogo {
+            width: 50px;
+            height: 50px;
+            padding-right: 10px;
+            border-style: none;
+            background-color: rgba(255, 255, 255, 0);
+        }
+        /*         
+        .nav_btn {
+            line-height: 10px;
+            font-weight: bold;
+            font-size: 50px;
+            background-color: #111;
+            height: 50px;
+            color: blue;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="bg"><img class="bg" src="./mockaroon-YqUeLG7fMr4-unsplash (1).jpg" alt="background"></div>
+        <div class="top" id="top">
+            <span class="logo logo_span">
+                <img src="./zoomferrous logo 1.2.png" alt="logo" class="logo logo_img">
+            </span>
+            <!-- <span class="nav_btn" onclick="">
+                <p>.<br>.<br>.</p>
+            </span> -->
+            <span class="nav_bar">
+                <a href="#" class="nav dnw">
+                    Download
+                </a>
+                <a href="./about2.o.html" class="nav abt">
+                    About
+                </a>
+                <a href="./help2.0.html" class="nav hlp">
+                    Help
+                </a>
+            </span>
+        </div>
+        <div class="main">
+            <h1>ZOOMFEROUS</h1>
+            <h4>Making Education Interactive</h4>
+        </div>
+        <div class="switch">
+            <div class="download">
+                <h6>Download</h6>
+                <img src="./download_120262.png" alt="" class="download downloadlogo">
+            </div>
+            <div class="git">
+                <h6>Github</h6>
+                <img src="./git_logo.png" alt="" class="git gitlogo">
+            </div>
+        </div>
+    </div>
+</body>
+<!-- <script>
+    function navigation() {
+        document.getElementById("top").innerHTML = `< span class = "nav_bar" >
+            <
+            a href = "#"
+        class = "nav dnw" >
+            Download <
+            /a> <
+            a href = "#"
+        class = "nav abt" >
+            About <
+            /a> <
+            a href = "#"
+        class = "nav hlp" >
+            Help <
+            /a> <
+            /span>`
+    }
+</script> -->
+
+</html>

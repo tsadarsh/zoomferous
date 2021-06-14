@@ -1,20 +1,19 @@
 import numpy as np
 import cv2 as cv
+from skimage.filters import threshold_sauvola
+from skimage.filters.rank import core_cy_3d
 
 
 class Freecom:
 	def __init__(self, cid=0):
 		self.cid = cid
 		self.frame = None
-		self.ink_color = []
-		self.lower_color = [110,50,50]
-		self.upper_color = [130,255,255]
 		self.cap = self.create_videocapture_object()
 		self.cam_height = self.get_camera_height()
 		self.cam_width = self.get_camera_width()
 		self.corner_points_cords = []
 		self.corner_points = self.create_blank_overlay(self.cam_height, self.cam_width)
-		self.masker = Mask_from_ink_color()
+		self.masker = Mask_from_skimage()
 
 	def create_videocapture_object(self):
 		cap = cv.VideoCapture(self.cid)
@@ -72,12 +71,11 @@ class Freecom:
 		pts2 = np.float32([[0, 0], [self.cam_width, 0], [0, self.cam_height], [self.cam_width, self.cam_height]])
 		transform_frame_matrix = cv.getPerspectiveTransform(pts1, pts2)
 		transform_frame = cv.warpPerspective(self.frame, transform_frame_matrix, (self.cam_width, self.cam_height))
-		cv.imshow('Zoomferous', transform_frame)
+		#cv.imshow('Zoomferous', transform_frame)
 
 		mask, color_masked = self.masker.show_masked_frame(transform_frame)
-		cv.imshow('mask', mask)
+		cv.imshow('Zoomferous', mask)
 		param = [transform_frame]
-		cv.setMouseCallback('Zoomferous', self.masker.get_color_from_click, param)
 
 
 class Mask:
@@ -111,3 +109,14 @@ class Mask_from_ink_color(Mask):
 		masked_frame = cv.bitwise_and(frame, frame, mask=mask)
 
 		return mask, masked_frame
+
+class Mask_from_skimage(Mask):
+	def show_masked_frame(self, frame):
+		warped = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+
+		T = threshold_sauvola(warped, window_size=35, k=0.2)
+		warped = (warped > T).astype("uint8") * 255
+		warped = cv.bitwise_not(warped)
+
+		masked_frame = None
+		return warped, masked_frame

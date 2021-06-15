@@ -134,6 +134,23 @@
             border-style: none;
             background-color: rgba(255, 255, 255, 0);
         }
+        
+        .download_link,
+        .git_link {
+            color: #111;
+            border: none;
+            background-color: rgba(17, 17, 17, 0);
+            width: 200px;
+            height: 60px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        
+        .git_link {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
         /*         
         .nav_btn {
             line-height: 10px;
@@ -157,7 +174,7 @@
                 <p>.<br>.<br>.</p>
             </span> -->
             <span class="nav_bar">
-                <a href="#" class="nav dnw">
+                <a href="https://github.com/tsadarsh/zoomferous/releases/download/v1.0/Zoomferous.zip" class="nav dnw">
                     Download
                 </a>
                 <a href="./about2.o.html" class="nav abt">
@@ -174,34 +191,20 @@
         </div>
         <div class="switch">
             <div class="download">
-                <h6>Download</h6>
-                <img src="./download_120262.png" alt="" class="download downloadlogo">
+                <a href="https://github.com/tsadarsh/zoomferous/releases/download/v1.0/Zoomferous.zip" class="download download_link">
+                    <h6>Download</h6>
+                    <img src="./download_120262.png" alt="" class="download downloadlogo">
+                </a>
             </div>
+
             <div class="git">
-                <h6>Github</h6>
-                <img src="./git_logo.png" alt="" class="git gitlogo">
+                <a href="https://github.com/tsadarsh/zoomferous" class="git git_link" target="_blank">
+                    <h6>Github</h6>
+                    <img src="./git_logo.png" alt="" class="git gitlogo">
+                </a>
             </div>
         </div>
     </div>
 </body>
-<!-- <script>
-    function navigation() {
-        document.getElementById("top").innerHTML = `< span class = "nav_bar" >
-            <
-            a href = "#"
-        class = "nav dnw" >
-            Download <
-            /a> <
-            a href = "#"
-        class = "nav abt" >
-            About <
-            /a> <
-            a href = "#"
-        class = "nav hlp" >
-            Help <
-            /a> <
-            /span>`
-    }
-</script> -->
 
 </html>

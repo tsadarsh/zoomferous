@@ -21,4 +21,9 @@ Double left mouse button click on **new** window.
 
 #### Quit
 Quit using keyboard input **q** twice.
- 
+
+#### Run Tests
+```bash
+python test.py
+# Add images for testing in test/images/ directory
+```

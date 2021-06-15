@@ -37,6 +37,15 @@ class Freecom:
 		else:
 			self.show_transformed_frame()
 
+	def test_run_zoomferous(self, image_source):
+		self.frame = cv.imread(image_source)
+
+		cv.imshow('feed', self.frame)
+		mask, color_masked = self.masker.show_masked_frame(self.frame)
+		cv.imshow('result', mask)
+
+		wait = cv.waitKey(0)
+
 	def get_camera_frame(self):
 		ret, frame = self.cap.read()
 

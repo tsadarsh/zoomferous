@@ -6,11 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <!-- <link rel="stylesheet" href="home_style.css"> -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Mate+SC&family=Merriweather:ital,wght@0,700;1,400&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Source+Serif+Pro:wght@300&display=swap');
         html,
         body {
             margin: 0px;
@@ -18,282 +16,192 @@
         }
         
         .container {
-            /* display: grid;
-            grid-template-rows: repeat(8, 100px); */
-            max-height: 100vmin;
+            display: grid;
+            grid-template-rows: 33vmin 43vmin 23vmin;
+        }
+        
+        .bg {
             width: 100vmax;
+            height: 100vmin;
+            z-index: -3;
+            grid-row-start: 1;
+            grid-column-start: 1;
         }
         
         .top {
-            /* grid-row-start: 1;
-            grid-row-end: 7; */
-            display: grid;
-            grid-template-rows: 75px 75px 100px 100px 200px;
-            width: 100vmax;
-            /* grid-template-columns: repeat(1,100vmax); */
-        }
-        
-        #bg {
-            z-index: -2;
-            height: 100%;
-            width: 100vmax;
             grid-row-start: 1;
-            grid-row-end: -1;
-            grid-column-end: 2;
-            opacity: 0.5;
+            grid-column-start: 1;
+            z-index: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
         }
         
         .logo {
-            /* width: 50px; */
-            height: 150px;
-            grid-row-start: 1;
-            grid-row-end: 3;
-            /* z-index: -1; */
-            grid-column-end: 2;
+            width: 200px;
+            align-self: center;
         }
         
         .logo_span {
-            padding: 20px;
+            padding-left: 50px;
         }
         
-        .nav {
-            grid-row-start: 2;
-            grid-row-end: 3;
-            justify-self: end;
-            /* justify-content: end; */
-            grid-column-start: 1;
-            font-size: 20px;
-            grid-column-end: 2;
-            background-color: rgba(0, 0, 0, 0.301);
-            height: 35px;
-            padding-top: 5px;
-            /* width: 90%; */
-            /* z-index: -1; */
-            /* display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            padding-right: 50px; */
-            /* padding-bottom: 10px; */
+        .nav_bar {
+            align-self: center;
+            background-color: rgba(17, 17, 17, 0.609);
+            color: #fff;
+            font-size: 30px;
+            padding: 20px;
+            font-family: 'Oxygen', sans-serif;
         }
         
         a {
             text-decoration: none;
-            padding: 20px;
-            padding-right: 50px;
-            /* padding-bottom: 20px; */
-            font-family: 'Merriweather', serif;
-            font-weight: 300;
-            font-style: italic;
-            opacity: 1 !important;
-            color: white;
-            /* text-align: end; */
-            /* justify-self: end; */
+            color: #fff;
+            padding-right: 60px;
         }
-        /* #download {
-            text-align: end;
-        }
-        
-        #about {
-            left: 30px;
-        } */
         
         a:hover {
-            font-family: 'Merriweather', serif;
-            /* font-weight: 700;
-            font-style: normal; */
+            /* text-decoration: underline; */
+            font-weight: bold;
             color: black;
         }
         
-        .heading {
-            grid-row-start: 3;
-            grid-row-end: 5;
-            font-family: 'Mate SC', serif;
-            /* font-size: 50px; */
-            text-align: center;
-            grid-column-start: 1;
+        .dnw {
+            padding-left: 50px;
         }
         
         h1 {
-            font-size: 100px;
-            padding-top: 15px;
-            margin-bottom: 0px;
-        }
-        
-        h3 {
-            font-size: 50px;
-            margin-top: 20px;
-        }
-        
-        .bottom {
-            /* grid-row-start: 7; */
-            /* grid-row-end: 6; */
-            background-image: linear-gradient(#fff, rgba(0, 0, 0, 0.507));
-            z-index: -3;
-            width: 100vmax;
-            /* height: 100%; */
-        }
-        
-        .dn_btn {
-            border: 2px solid black;
-            border-radius: 50px;
-            width: 200px;
-            height: 50px;
-            padding: 0px;
-            margin-top: 30px;
-        }
-        
-        .dn_link {
-            display: grid;
-            grid-template-columns: 130px 70px;
-            padding: 0px;
-            grid-row-start: 1;
-            color: black;
-        }
-        
-        .dn_img {
-            width: 40px;
-            height: 40px;
-            justify-self: end;
-            grid-column-start: 2;
-            padding-right: 10px;
-        }
-        
-        h2 {
-            grid-column-start: 1;
-            grid-column-end: 2;
-            grid-row-start: 1;
-            grid-row-end: 2;
-            font-size: 20px;
-            margin: 0px;
-            padding-top: 8px;
-            padding-left: 5px;
-        }
-        
-        .dn {
-            /* align-items: center; */
-            align-self: center;
-            justify-self: center;
-        }
-        
-        .bottom {
-            display: flex;
-            flex-direction: column;
-            /* grid-template-rows: 500px 300px 860px 80px; */
-            font-size: 20px;
             text-align: center;
+            font-size: 120px;
+            margin: 10px;
+            font-family: 'Comfortaa', cursive;
         }
         
-        .about {
-            grid-row-end: 2;
+        h4 {
+            text-align: center;
+            font-size: 60px;
+            margin: 10px;
+            font-family: 'Source Serif Pro', serif;
         }
         
-        .help {
+        .switch {
             grid-row-start: 3;
+            grid-row-end: 4;
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            /* flex-direction: column; */
+            align-content: center;
+            /* justify-content: sp; */
+            font-family: 'Oxygen', sans-serif;
         }
         
-        .about_head,
-        .help_head {
-            text-align: center;
-            font-size: 70px;
-            font-family: 'Cinzel', serif;
+        .download,
+        .git {
+            /* justify-self: center; */
+            width: 200px;
+            height: 60px;
+            background-color: #fff;
+            justify-self: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 15px;
+            border-style: double;
+            border-width: 4px;
+            /* margin: 20px; */
+            /* grid-row-end: 4;
+            grid-column-end: 2; */
         }
         
-        .about_para,
-        .help_section {
-            font-family: 'Orbitron', sans-serif;
+        .download {
+            background-color: rgba(49, 49, 49, 0.308);
+            /* color: #fff; */
+        }
+        
+        h6 {
             font-size: 25px;
-            padding-left: 150px;
-            padding-right: 150px;
-            text-align: justify;
+            margin: 0px;
+            padding-left: 20px;
         }
         
-        .help_subhead {
-            font-size: 40px;
+        .downloadlogo,
+        .gitlogo {
+            width: 50px;
+            height: 50px;
+            padding-right: 10px;
+            border-style: none;
+            background-color: rgba(255, 255, 255, 0);
         }
-        
-        .footer {
-            bottom: 10px;
-            grid-row-end: -1;
-            align-content: end;
-            color: white;
-            background-color: black;
-            font-size: 25px;
-        }
-        .demo,
-        iframe {
-            height: 300px;
-        }
-        /* @media only screen and (max-width: 768px){
-            
+        /*         
+        .nav_btn {
+            line-height: 10px;
+            font-weight: bold;
+            font-size: 50px;
+            background-color: #111;
+            height: 50px;
+            color: blue;
         } */
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="top">
-            <img id="bg" src="./chese_cut.png" alt="background">
-            <span class="logo logo_span"><img class="logo" src="./zoomferrous logo 1.2.png" alt="logo"></span>
-            <span class="nav">
-                <a id="download" href="https://github.com/tsadarsh/zoomferous/releases/download/v1.0/Zoomferous.zip">Downloads</a>
-                <a id="help" href="#">Help</a>
-                <a id="about" href="#">About</a>
+        <div class="bg"><img class="bg" src="./mockaroon-YqUeLG7fMr4-unsplash (1).jpg" alt="background"></div>
+        <div class="top" id="top">
+            <span class="logo logo_span">
+                <img src="./zoomferrous logo 1.2.png" alt="logo" class="logo logo_img">
             </span>
-            <span class="heading">
-                <h1>ZOOMFEROUS</h1>
-                <h3>Making Education Interactive</h3>
-            </span>
-            <button class="dn dn_btn">
-                <a class="dn_link" href="https://github.com/tsadarsh/zoomferous/releases/download/v1.0/Zoomferous.zip">
-                    <img class="dn dn_img" src="./download_120262.png" alt=""><h2>Download</h2>
+            <!-- <span class="nav_btn" onclick="">
+                <p>.<br>.<br>.</p>
+            </span> -->
+            <span class="nav_bar">
+                <a href="#" class="nav dnw">
+                    Download
                 </a>
-            </button>
-        </div>
-
-        <div class="bottom">
-            <div class="about">
-                <h1 class="about_head">About</h1>
-                <p class="about_para">
-                    We bring to you a software which emulates blackboard writing, "<b>Zoomferous</b>". With no extra hardware this software uses the webcam of the device to read the content of paper/board/workspace and applies filters before presenting
-                    the masked content. <br><br> The user brings the workspace which can be a notebook page, board, A4 paper in the view of a webcam. Next, the four corner points of the workspace are selected to crop the required portion. 2D perspective
-                    and affine transformation transforms the quadrilateral workspace region to a square window.
-                    <br><br> The transformed frame is now fed into an optimizer which enhances and removes the noise from the frame. Then we apply a dynamic filter which abstracts the given image into a binary mask making the data appear such that it
-                    would be on a black board to the student. The filter removes the noise from the image and the result is a clean blackboard-like view.
-
-                </p>
-            </div>
-            <div class="demo">
-                <iframe height="480" width="580" src="https://www.youtube.com/embed/xKsz5qfVB2A" frameborder="0"></iframe>
-            </div>
-            <div class="help">
-                <h1 class="help_head">
+                <a href="./about2.o.html" class="nav abt">
+                    About
+                </a>
+                <a href="./help2.0.html" class="nav hlp">
                     Help
-                </h1>
-                <p class="help_section">
-                    <span class="help_subhead">
-                        For any queries, do contact: 
-                    </span>
-                    <br><br>
-                    <b>Adarsh TS </b><br>
-                    <i> tsadarsh0707@gmail.com</i>
-                    <br><br>
-                    <b>Gaurang Agarwal</b><br>
-                    <i> gaurangagarwal10@gmail.com</i>
-                    <br><br>
-                    <b>Sanjeeban Parasar</b><br>
-                    <i>sanjeebanparasar@gmail.com</i>
-                    <br><br>
-                    <b>Soumil Baldota</b><br>
-                    <i> soumilbaldota@gmail.com</i>
-
-                </p>
+                </a>
+            </span>
+        </div>
+        <div class="main">
+            <h1>ZOOMFEROUS</h1>
+            <h4>Making Education Interactive</h4>
+        </div>
+        <div class="switch">
+            <div class="download">
+                <h6>Download</h6>
+                <img src="./download_120262.png" alt="" class="download downloadlogo">
             </div>
-            <div class="footer">
-                <p>Copyright &#169 2021 | Zoomferous | All Rights Reserved.</p>
+            <div class="git">
+                <h6>Github</h6>
+                <img src="./git_logo.png" alt="" class="git gitlogo">
             </div>
         </div>
-
     </div>
 </body>
+<!-- <script>
+    function navigation() {
+        document.getElementById("top").innerHTML = `< span class = "nav_bar" >
+            <
+            a href = "#"
+        class = "nav dnw" >
+            Download <
+            /a> <
+            a href = "#"
+        class = "nav abt" >
+            About <
+            /a> <
+            a href = "#"
+        class = "nav hlp" >
+            Help <
+            /a> <
+            /span>`
+    }
+</script> -->
 
 </html>

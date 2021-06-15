@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gentium+Basic:ital@0;1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap');
+        html,
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-rows: 20vmin 15vmin 65vmin;
+        }
+        
+        .bg {
+            width: 100vmax;
+            height: 100vmin;
+            z-index: -3;
+            grid-row-start: 1;
+            grid-column-start: 1;
+            opacity: .8;
+        }
+        
+        h1 {
+            font-size: 60px;
+            margin: 0px;
+            margin-top: 5vmin;
+            margin-left: 20%;
+            grid-row-start: 2;
+            grid-column-start: 1;
+            height: 70px;
+        }
+        
+        .line {
+            grid-row-start: 3;
+            grid-column-start: 1;
+            height: 3px;
+            width: 50%;
+            background-color: #111;
+            margin-bottom: 8%;
+            align-self: start;
+        }
+        
+        .content {
+            grid-row-end: -1;
+            grid-column-start: 1;
+            /* display: flex;
+            flex-direction: row; */
+            /* justify-content: space-between; */
+            margin-top: 5vmin;
+        }
+        
+        p {
+            padding-left: 50px;
+            /* padding-right: 15%; */
+            font-size: 25px;
+            width: 50%;
+            margin-top: 0px;
+            font-family: 'Gentium Basic', serif;
+        }
+        
+        .help_subhead {
+            font-size: 35px;
+        }
+        
+        .top {
+            grid-row-start: 1;
+            grid-column-start: 1;
+            z-index: 1;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background-color: rgba(17, 17, 17, 0.233);
+            height: 170px;
+        }
+        
+        .logo {
+            width: 150px;
+            align-self: center;
+        }
+        
+        .logo_span {
+            padding-left: 40px;
+            /* padding-top: 20px; */
+        }
+        
+        .nav_bar {
+            align-self: center;
+            background-color: rgba(17, 17, 17, 0.609);
+            color: #fff;
+            font-size: 20px;
+            padding: 15px;
+            font-family: 'Oxygen', sans-serif;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #fff;
+            padding-right: 60px;
+        }
+        
+        a:hover {
+            /* text-decoration: underline; */
+            font-weight: bold;
+            color: black;
+        }
+        
+        .hlp {
+            color: #111;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="bg"><img class="bg" src="./mockaroon-YqUeLG7fMr4-unsplash (1).jpg" alt="background"></div>
+        <div class="top" id="top">
+            <span class="logo logo_span">
+                <a href="./index.html">
+                    <img src="./zoomferrous logo 1.2.png" alt="logo" class="logo logo_img">
+                </a>
+            </span>
+
+            <span class="nav_bar">
+                <a href="#" class="nav dnw">
+                    Download
+                </a>
+                <a href="./about2.o.html" class="nav abt">
+                    About
+                </a>
+                <a href="#" class="nav hlp">
+                    Help
+                </a>
+            </span>
+        </div>
+        <h1>
+            Help
+        </h1>
+        <div class="line"></div>
+
+        <div class="content">
+            <p class="help_content">
+                <span class="help_subhead">
+                    For any queries, do contact: 
+                </span>
+                <br><br>
+                <b>Adarsh TS </b><br>
+                <i> tsadarsh0707@gmail.com</i>
+                <br><br>
+                <b>Gaurang Agarwal</b><br>
+                <i> gaurangagarwal10@gmail.com</i>
+                <br><br>
+                <b>Sanjeeban Parasar</b><br>
+                <i>sanjeebanparasar@gmail.com</i>
+                <br><br>
+                <b>Soumil Baldota</b><br>
+                <i> abc@gmail.com</i>
+            </p>
+
+        </div>
+    </div>
+</body>
+
+</html>

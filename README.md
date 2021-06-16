@@ -1,8 +1,8 @@
-![Webp net-resizeimage](https://user-images.githubusercontent.com/66778010/121997682-5baab700-cdc8-11eb-9647-0f9eed096d69.png)
+# Zoomferous
 
-
-# zoomferous
-An alternative to Graphics Tablet.
+<p align="center">
+  <img width="215" height="225" src="https://user-images.githubusercontent.com/66778010/121997682-5baab700-cdc8-11eb-9647-0f9eed096d69.png">
+</p>
 
 We bring to you a software which emulates blackboard writing, "Zoomferous". With no extra hardware this software uses the webcam of the device to read the content of paper/board/workspace and applies filters before presenting the masked content.
 
@@ -12,30 +12,15 @@ The transformed frame is now fed into an optimizer which enhances and removes th
 
 ## Demo video
 
+https://user-images.githubusercontent.com/66778010/122145451-e647f080-ce72-11eb-8662-d1dd66b7f2b9.mp4
 
-## Requirements
-```
-python3.x
-opencv-python
-numpy
-```
+What the full demo video [here](https://www.youtube.com/watch?v=xKsz5qfVB2A).
 
-### Usage
-```bash
-cd zoomferous
-python3 main.py
-```
 #### Select Page corners:
-Single left mouse button click on **feed** window.
+Single click Left mouse button on **Zoomferous** window.
 
-#### Choose ink color (after selecting page corners):
-Double left mouse button click on **new** window.
+#### Switch back to corner points selctiong:
+Press key 'q' once.
 
 #### Quit
-Quit using keyboard input **q** twice.
-
-#### Run Tests
-```bash
-python test.py
-# Add images for testing in test/images/ directory
-```
+Press key 'q' twice

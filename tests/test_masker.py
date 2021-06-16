@@ -5,7 +5,7 @@ import key_bindings
 
 
 def test():
-	os.chdir(os.getcwd() + '/test/images')
+	os.chdir(os.getcwd() + '/tests/images')
 	images = os.listdir()
 
 	app = Freecom()

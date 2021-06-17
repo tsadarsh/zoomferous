@@ -3,6 +3,8 @@ import cv2 as cv
 from skimage.filters import threshold_sauvola
 from skimage.filters.rank import core_cy_3d
 
+import quadrilateral_sort
+
 
 class Freecom:
 	def __init__(self, cid=0):
@@ -76,7 +78,8 @@ class Freecom:
 		cv.imshow('Zoomferous', frame_with_corner_points)
 
 	def show_transformed_frame(self):
-		pts1 = np.float32(self.corner_points_cords)
+		sorted_corner_points_cords = quadrilateral_sort.tl_tr_bl_br(self.corner_points_cords)
+		pts1 = np.float32(sorted_corner_points_cords)
 		pts2 = np.float32([[0, 0], [self.cam_width, 0], [0, self.cam_height], [self.cam_width, self.cam_height]])
 		transform_frame_matrix = cv.getPerspectiveTransform(pts1, pts2)
 		transform_frame = cv.warpPerspective(self.frame, transform_frame_matrix, (self.cam_width, self.cam_height))

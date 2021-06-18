@@ -14,18 +14,32 @@
             margin: 0px;
             padding: 0px;
         }
-        
-        .container {
+        /* .container {
             display: grid;
             grid-template-rows: 33vmin 43vmin 23vmin;
+            grid-template-rows: 1fr 1fr 1fr;
+        } */
+        
+        .container::before {
+            background: url(./mockaroon-YqUeLG7fMr4-unsplash.jpg) no-repeat center center;
+            background-size: cover;
+            content: " ";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
         }
         
         .bg {
-            width: 100vmax;
-            height: 100vmin;
+            width: 100%;
+            height: 100%;
             z-index: -3;
             grid-row-start: 1;
+            grid-row-end: -1;
             grid-column-start: 1;
+            /* grid-column-end: 4; */
         }
         
         .top {
@@ -46,6 +60,10 @@
             padding-left: 50px;
         }
         
+        .hamburger {
+            display: none;
+        }
+        
         .nav_bar {
             align-self: center;
             background-color: rgba(17, 17, 17, 0.609);
@@ -53,6 +71,8 @@
             font-size: 30px;
             padding: 20px;
             font-family: 'Oxygen', sans-serif;
+            display: flex;
+            flex-direction: row;
         }
         
         a {
@@ -71,28 +91,37 @@
             padding-left: 50px;
         }
         
+        .main {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 2;
+            grid-row-end: 3;
+        }
+        
         h1 {
             text-align: center;
-            font-size: 120px;
+            font-size: 100px;
             margin: 10px;
             font-family: 'Comfortaa', cursive;
         }
         
         h4 {
             text-align: center;
-            font-size: 60px;
+            font-size: 50px;
             margin: 10px;
             font-family: 'Source Serif Pro', serif;
         }
         
         .switch {
-            grid-row-start: 3;
+            /* grid-row-start: 3;
             grid-row-end: 4;
+            grid-column-start: 1;
+            grid-column-end: 2; */
             display: grid;
             grid-template-rows: 1fr 1fr;
             /* flex-direction: column; */
             align-content: center;
-            /* justify-content: sp; */
+            justify-content: center;
             font-family: 'Oxygen', sans-serif;
         }
         
@@ -115,6 +144,11 @@
             grid-column-end: 2; */
         }
         
+        .btn1,
+        .btn2 {
+            margin-top: 30px;
+        }
+        
         .download {
             background-color: rgba(49, 49, 49, 0.308);
             /* color: #fff; */
@@ -134,6 +168,23 @@
             border-style: none;
             background-color: rgba(255, 255, 255, 0);
         }
+        
+        .download_link,
+        .git_link {
+            color: #111;
+            border: none;
+            background-color: rgba(17, 17, 17, 0);
+            width: 200px;
+            height: 60px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        
+        .git_link {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
         /*         
         .nav_btn {
             line-height: 10px;
@@ -143,21 +194,128 @@
             height: 50px;
             color: blue;
         } */
+        
+        @media only screen and (max-width: 970px) {
+            h1 {
+                font-size: 70px;
+            }
+            h4 {
+                font-size: 35px;
+                margin-top: 50px;
+            }
+            .logo {
+                width: 100px;
+                align-self: center;
+            }
+            .logo_span {
+                padding-left: 50px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+            .nav_bar {
+                align-self: center;
+                font-size: 20px;
+                padding: 10px;
+            }
+            a {
+                text-decoration: none;
+                color: #fff;
+                padding-right: 30px;
+            }
+            .dnw {
+                padding-left: 30px;
+            }
+            .btn1 {
+                margin-top: 100px;
+            }
+        }
+        
+        @media only screen and (max-width: 560px) {
+            h1 {
+                font-size: 30px;
+                margin-top: 50px;
+            }
+            h4 {
+                font-size: 15px;
+                margin-top: 50px;
+            }
+            .logo {
+                width: 80px;
+                align-self: center;
+            }
+            .logo_span {
+                padding-left: 30px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+            /* .nav_bar {
+                display: none;
+            } */
+            a {
+                text-decoration: none;
+                color: #fff;
+                padding-right: 30px;
+            }
+            .dnw {
+                padding-left: 30px;
+            }
+            .btn1 {
+                margin-top: 100px;
+            }
+            .hamburger {
+                display: block;
+                width: 20px;
+                align-self: center;
+                padding-top: 38px;
+                padding-right: 30px;
+            }
+            .box {
+                display: flex;
+                flex-direction: column;
+                margin: 10px 10px;
+                font-size: 20px;
+            }
+            a {
+                background-color: #111;
+                border: 2px;
+                border-color: #fff;
+                margin: 2px;
+                padding: 5px 9px;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="bg"><img class="bg" src="./mockaroon-YqUeLG7fMr4-unsplash (1).jpg" alt="background"></div>
+        <!-- <div class="bg"><img class="bg" src="./mockaroon-YqUeLG7fMr4-unsplash (1).jpg" alt="background"></div> -->
         <div class="top" id="top">
             <span class="logo logo_span">
                 <img src="./zoomferrous logo 1.2.png" alt="logo" class="logo logo_img">
             </span>
-            <!-- <span class="nav_btn" onclick="">
-                <p>.<br>.<br>.</p>
+
+
+            <span class="nav_btn">
+                <img src="./Hamburger_icon.png" alt="menu" class="hamburger" id="hamburger_icon" onClick="dropdown_menu()">
+            </span>
+
+            <!-- <span class="box">
+                <a href="#">
+                    Download
+                </a>
+                <a href="#">
+                    About
+                </a>
+                <a href="#">
+                    Help
+                </a>
             </span> -->
-            <span class="nav_bar">
-                <a href="#" class="nav dnw">
+
+
+
+            <span class="nav_bar" id="navigation">
+                <a href="https://github.com/tsadarsh/zoomferous/releases/download/v1.0/Zoomferous.zip" class="nav dnw">
                     Download
                 </a>
                 <a href="./about2.o.html" class="nav abt">
@@ -167,41 +325,86 @@
                     Help
                 </a>
             </span>
+
+
         </div>
         <div class="main">
             <h1>ZOOMFEROUS</h1>
             <h4>Making Education Interactive</h4>
         </div>
-        <div class="switch">
+        <div class="switch btn1">
             <div class="download">
-                <h6>Download</h6>
-                <img src="./download_120262.png" alt="" class="download downloadlogo">
+                <a href="https://github.com/tsadarsh/zoomferous/releases/download/v1.0/Zoomferous.zip" class="download download_link">
+                    <h6>Download</h6>
+                    <img src="./download_120262.png" alt="" class="download downloadlogo">
+                </a>
             </div>
-            <div class="git">
-                <h6>Github</h6>
-                <img src="./git_logo.png" alt="" class="git gitlogo">
+
+            <div class="git btn2">
+                <a href="https://github.com/tsadarsh/zoomferous" class="git git_link" target="_blank">
+                    <h6>Github</h6>
+                    <img src="./git_logo.png" alt="" class="git gitlogo">
+                </a>
             </div>
         </div>
     </div>
 </body>
-<!-- <script>
-    function navigation() {
-        document.getElementById("top").innerHTML = `< span class = "nav_bar" >
-            <
-            a href = "#"
-        class = "nav dnw" >
-            Download <
-            /a> <
-            a href = "#"
-        class = "nav abt" >
-            About <
-            /a> <
-            a href = "#"
-        class = "nav hlp" >
-            Help <
-            /a> <
-            /span>`
+
+<script>
+    let width = screen.availWidth;
+    console.log(width);
+    if (width < 561) {
+        let navbar = document.getElementById("navigation");
+        navbar.remove();
+
+        // let nav = document.createElement("span");
+        // nav.setAttribute = "id", "nav_btn";
+
+        // let hamburger = document.createElement("img");
+        // nav.setAttribute = "id", "humburger_icon";
+        // nav.setAttribute = "src", "./Hamburger_icon.png";
+
+        // nav.appendChild(hamburger);
+
+        // let check = document.getElementById("box");
+        // console.log(check);
+
+        function dropdown_menu() {
+            let check = document.getElementById("box");
+            console.log(check);
+
+
+            // if (check != null) {
+            let icon = document.getElementById("hamburger_icon");
+            icon.remove();
+            let dropdown = document.createElement("span");
+            dropdown.setAttribute = "id", "box";
+            dropdown.className = "box";
+
+            let download = document.createElement("a");
+            let download_display = document.createTextNode("Download");
+            download.appendChild(download_display);
+
+            let about = document.createElement("a");
+            let about_display = document.createTextNode("About");
+            about.appendChild(about_display);
+
+            let help = document.createElement("a");
+            help.href = "./help2.0.html"
+            let help_display = document.createTextNode("Help");
+            help.appendChild(help_display);
+
+            dropdown.appendChild(download);
+            dropdown.appendChild(about);
+            dropdown.appendChild(help);
+
+            dropdown.s
+
+            let top = document.getElementById("top");
+            top.appendChild(dropdown);
+            // }
+        }
     }
-</script> -->
+</script>
 
 </html>

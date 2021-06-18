@@ -11,6 +11,5 @@ def tl_tr_bl_br(random):
 	rep.append(random[3])
 	res.sort(reverse=True, key=lambda x: int(x[0]))
 	rep.sort(reverse=True, key=lambda x: int(x[0]))
-	random.sort(reverse=True, key=lambda x: int(x[0]))
 	final = [res[0], res[1], rep[0], rep[1]]
 	return final

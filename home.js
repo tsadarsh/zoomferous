@@ -29,8 +29,8 @@ if (width < 561) {
         dropdown.className = "box";
 
         let download = document.createElement("a");
-        download.href = "https://github.com/tsadarsh/zoomferous/releases/download/v1.0/Zoomferous.zip";
-        let download_display = document.createTextNode("Download");
+        download.href = "./index.html";
+        let download_display = document.createTextNode("Home");
         download.appendChild(download_display);
 
         let about = document.createElement("a");

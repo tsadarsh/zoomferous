@@ -29,6 +29,7 @@ if (width < 561) {
         dropdown.className = "box";
 
         let download = document.createElement("a");
+        download.href = "https://github.com/tsadarsh/zoomferous/releases/download/v1.0/Zoomferous.zip";
         let download_display = document.createTextNode("Download");
         download.appendChild(download_display);
 
@@ -46,7 +47,7 @@ if (width < 561) {
         dropdown.appendChild(about);
         dropdown.appendChild(help);
 
-        dropdown.s
+        //dropdown.s
 
         let top = document.getElementById("top");
         top.appendChild(dropdown);

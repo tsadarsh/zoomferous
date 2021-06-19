@@ -33,7 +33,7 @@ if (width < 561) {
         download.appendChild(download_display);
 
         let about = document.createElement("a");
-        about.href = "./about2.1.html"
+        about.href = "./about2.o.html"
         let about_display = document.createTextNode("About");
         about.appendChild(about_display);
 

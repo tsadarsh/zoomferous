@@ -9,23 +9,38 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=Source+Serif+Pro:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Source+Serif+Pro:wght@600&display=swap');
         html,
         body {
             margin: 0px;
             padding: 0px;
         }
-        
-        .container {
+        /* .container {
             display: grid;
             grid-template-rows: 33vmin 43vmin 23vmin;
+            grid-template-rows: 1fr 1fr 1fr;
+        } */
+        
+        .container::before {
+            background: url(./mockaroon-YqUeLG7fMr4-unsplash.jpg) no-repeat center center;
+            background-size: cover;
+            content: " ";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 150vh;
+            z-index: -1;
         }
         
         .bg {
-            width: 100vmax;
-            height: 100vmin;
+            width: 100%;
+            height: 100%;
             z-index: -3;
             grid-row-start: 1;
+            grid-row-end: -1;
             grid-column-start: 1;
+            /* grid-column-end: 4; */
         }
         
         .top {
@@ -46,6 +61,10 @@
             padding-left: 50px;
         }
         
+        .hamburger {
+            display: none;
+        }
+        
         .nav_bar {
             align-self: center;
             background-color: rgba(17, 17, 17, 0.609);
@@ -53,6 +72,8 @@
             font-size: 30px;
             padding: 20px;
             font-family: 'Oxygen', sans-serif;
+            display: flex;
+            flex-direction: row;
         }
         
         a {
@@ -71,140 +92,294 @@
             padding-left: 50px;
         }
         
+        .main {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 2;
+            grid-row-end: 3;
+        }
+        
         h1 {
             text-align: center;
-            font-size: 120px;
+            font-size: 100px;
             margin: 10px;
             font-family: 'Comfortaa', cursive;
         }
         
         h4 {
             text-align: center;
-            font-size: 60px;
+            font-size: 50px;
             margin: 10px;
             font-family: 'Source Serif Pro', serif;
         }
         
-        .switch {
-            grid-row-start: 3;
-            grid-row-end: 4;
-            display: grid;
-            grid-template-rows: 1fr 1fr;
-            /* flex-direction: column; */
-            align-content: center;
-            /* justify-content: sp; */
+        .switch,
+        .windows {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             font-family: 'Oxygen', sans-serif;
+            font-size: 30px;
         }
         
-        .download,
-        .git {
-            /* justify-self: center; */
-            width: 200px;
-            height: 60px;
-            background-color: #fff;
-            justify-self: center;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 15px;
-            border-style: double;
-            border-width: 4px;
-            /* margin: 20px; */
-            /* grid-row-end: 4;
-            grid-column-end: 2; */
+        .downloadlogo {
+            width: 80px;
+        }
+        
+        h3 {
+            margin-bottom: 10px;
+            margin-top: 50px;
         }
         
         .download {
-            background-color: rgba(49, 49, 49, 0.308);
-            /* color: #fff; */
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+        
+        .exe,
+        .zip,
+        .git {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 250px;
+            height: 80px;
+            border: 5px;
+            border-color: #111;
+            border-style: double;
+            border-radius: 20px;
+            margin: 10px;
+        }
+        
+        .git_link,
+        .download_link {
+            border-style: none;
+            padding: 20px;
+        }
+        
+        .gitlogo {
+            width: 70px;
         }
         
         h6 {
             font-size: 25px;
-            margin: 0px;
-            padding-left: 20px;
-        }
-        
-        .downloadlogo,
-        .gitlogo {
-            width: 50px;
-            height: 50px;
-            padding-right: 10px;
-            border-style: none;
-            background-color: rgba(255, 255, 255, 0);
-        }
-        
-        .download_link,
-        .git_link {
-            color: #111;
-            border: none;
-            background-color: rgba(17, 17, 17, 0);
-            width: 200px;
-            height: 60px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-        
-        .git_link {
-            padding-right: 8px;
-            padding-left: 8px;
-        }
-        /*         
-        .nav_btn {
-            line-height: 10px;
             font-weight: bold;
-            font-size: 50px;
-            background-color: #111;
-            height: 50px;
-            color: blue;
-        } */
+        }
+        
+        .btn1,
+        .btn2 {
+            background-color: rgba(255, 255, 255, 0.609);
+        }
+        
+        .download_link {
+            color: #111;
+        }
+        
+        .btn3 {
+            background-color: rgba(17, 17, 17, 0.397);
+            margin-top: 30px;
+        }
+        
+        .line {
+            height: 5px;
+            width: 50%;
+            background-color: #111
+        }
+        
+        @media only screen and (max-width: 970px) {
+            h1 {
+                font-size: 70px;
+            }
+            h4 {
+                font-size: 40px;
+                margin-top: 50px;
+            }
+            .logo {
+                width: 100px;
+                align-self: center;
+            }
+            .logo_span {
+                padding-left: 50px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+            .nav_bar {
+                align-self: center;
+                font-size: 20px;
+                padding: 10px;
+            }
+            a {
+                text-decoration: none;
+                color: #fff;
+                padding-right: 30px;
+            }
+            .dnw {
+                padding-left: 30px;
+            }
+            h3 {
+                font-size: 30px;
+            }
+            .downloadlogo {
+                width: 60px;
+            }
+        }
+        
+        @media only screen and (max-width: 560px) {
+            h1 {
+                font-size: 40px;
+                margin-top: 50px;
+                font-weight: 700;
+            }
+            h4 {
+                font-size: 25px;
+                margin-top: 50px;
+            }
+            .logo {
+                width: 80px;
+                align-self: center;
+            }
+            .logo_span {
+                padding-left: 30px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+            a {
+                text-decoration: none;
+                color: #fff;
+                padding-right: 30px;
+            }
+            .dnw {
+                padding-left: 30px;
+            }
+            .hamburger {
+                display: block;
+                width: 30px;
+                align-self: center;
+                padding-top: 48px;
+                padding-right: 30px;
+            }
+            .box {
+                display: flex;
+                flex-direction: column;
+                margin: 10px 10px;
+                font-size: 20px;
+            }
+            a {
+                background-color: #111;
+                border: 2px;
+                border-color: #fff;
+                margin: 2px;
+                padding: 5px 9px;
+                text-align: center;
+            }
+            .download {
+                flex-direction: column;
+            }
+            .git_link,
+            .download_link {
+                background-color: rgba(255, 255, 255, 0);
+            }
+            h3 {
+                font-size: 20px;
+            }
+            .btn1,
+            .btn2,
+            .btn3 {
+                height: 70px;
+            }
+            .logo1,
+            .logo2,
+            .gitlogo {
+                width: 60px;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="bg"><img class="bg" src="./mockaroon-YqUeLG7fMr4-unsplash (1).jpg" alt="background"></div>
+        <!-- <div class="bg"><img class="bg" src="./mockaroon-YqUeLG7fMr4-unsplash (1).jpg" alt="background"></div> -->
         <div class="top" id="top">
             <span class="logo logo_span">
                 <img src="./zoomferrous logo 1.2.png" alt="logo" class="logo logo_img">
             </span>
-            <!-- <span class="nav_btn" onclick="">
-                <p>.<br>.<br>.</p>
-            </span> -->
-            <span class="nav_bar">
-                <a href="https://github.com/tsadarsh/zoomferous/releases/download/v1.0/Zoomferous.exe" class="nav dnw">
+
+
+            <span class="nav_btn">
+                <img src="./Hamburger_icon.png" alt="menu" class="hamburger" id="hamburger_icon" onClick="dropdown_menu()">
+            </span>
+
+            <!-- <span class="box">
+                <a href="#">
                     Download
                 </a>
-                <a href="./about2.o.html" class="nav abt">
+                <a href="#">
+                    About
+                </a>
+                <a href="#">
+                    Help
+                </a>
+            </span> -->
+
+
+
+            <span class="nav_bar" id="navigation">
+                <a href="#" class="nav dnw">
+                    Home
+                </a>
+                <a href="./about2.0.html" class="nav abt">
                     About
                 </a>
                 <a href="./help2.0.html" class="nav hlp">
                     Help
                 </a>
             </span>
+
+
         </div>
         <div class="main">
             <h1>ZOOMFEROUS</h1>
             <h4>Making Education Interactive</h4>
         </div>
         <div class="switch">
+            <div class="windows">
+                <h3>Download for Windows</h3>
+                <!-- <img src="./download_120262.png" alt="" class="download downloadlogo"> -->
+                <img src="https://img.icons8.com/ios-filled/50/000000/windows-10.png" alt="" class="downloadlogo">
+            </div>
             <div class="download">
-                <a href="https://github.com/tsadarsh/zoomferous/releases/download/v1.0/Zoomferous.exe" class="download download_link">
-                    <h6>Download</h6>
-                    <img src="./download_120262.png" alt="" class="download downloadlogo">
-                </a>
+                <div class="exe btn1">
+                    <a href="https://github.com/tsadarsh/zoomferous/releases/download/v1.0/Zoomferous.exe" class="exe download_link">
+                        <h6>EXE</h6>
+                        <img src="https://img.icons8.com/dotty/80/000000/exe.png" class="logo1">
+                    </a>
+                </div>
+                <div class="zip btn2">
+                    <a href="https://github.com/tsadarsh/zoomferous/releases/download/v1.0/Zoomferous.zip" class="zip download_link">
+                        <h6>ZIP</h6>
+                        <img src="https://img.icons8.com/dotty/80/000000/zip.png" class="logo2">
+                    </a>
+                </div>
             </div>
 
-            <div class="git">
+            <div class="line"></div>
+
+            <div class="git btn3">
                 <a href="https://github.com/tsadarsh/zoomferous" class="git git_link" target="_blank">
                     <h6>Github</h6>
-                    <img src="./git_logo.png" alt="" class="git gitlogo">
+                    <img src="./git_logo.png" alt="" class="gitlogo">
                 </a>
             </div>
         </div>
     </div>
 </body>
+
+<script src="./home.js"></script>
 
 </html>

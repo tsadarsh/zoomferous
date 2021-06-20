@@ -3,5 +3,9 @@ import cv2 as cv
 import quit
 
 def listen(app):
-	if cv.waitKey(1) == ord('q'):
+	key = cv.waitKey(1)
+	if key == ord('q'):
 		quit.Key_Q(app)
+
+	elif key == ord('s'):
+		app.save_frame()

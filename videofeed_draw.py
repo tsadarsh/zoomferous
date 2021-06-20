@@ -2,6 +2,7 @@ import numpy as np
 import cv2 as cv
 from skimage.filters import threshold_sauvola
 from skimage.filters.rank import core_cy_3d
+from time import asctime as current_time
 
 import quadrilateral_sort
 
@@ -10,6 +11,7 @@ class Freecom:
 	def __init__(self, cid=0):
 		self.cid = cid
 		self.frame = None
+		self.current_frame_in_window = None
 		self.cap = self.create_videocapture_object()
 		self.cam_height = self.get_camera_height()
 		self.cam_width = self.get_camera_width()
@@ -76,6 +78,7 @@ class Freecom:
 		frame_with_corner_points = cv.add(frame_without_corner_points, self.corner_points)
 
 		cv.imshow('Zoomferous', frame_with_corner_points)
+		self.current_frame_in_window = frame_with_corner_points
 
 	def show_transformed_frame(self):
 		sorted_corner_points_cords = quadrilateral_sort.tl_tr_bl_br(self.corner_points_cords)
@@ -87,8 +90,14 @@ class Freecom:
 
 		mask, color_masked = self.masker.show_masked_frame(transform_frame)
 		cv.imshow('Zoomferous', mask)
+		self.current_frame_in_window = mask
 		param = [transform_frame]
 
+	def save_frame(self, name=None):
+		if name is None:
+			name = current_time() + '.png'
+		print(f"Saving frame as {name}")
+		cv.imwrite(name, self.current_frame_in_window)
 
 class Mask:
 	def __init__(self):

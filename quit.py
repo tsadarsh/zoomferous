@@ -15,6 +15,7 @@ class Key_Q:
 		cv.destroyWindow('mask')
 		self.app.corner_points_cords = []
 		self.app.corner_points = self.app.create_blank_overlay(self.app.cam_height, self.app.cam_width)
+		self.app.cache_frame = self.app.create_blank_overlay(self.app.cam_height, self.app.cam_width)
 
 	def quit_zoomferous(self):
 		self.app.cap.release()

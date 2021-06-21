@@ -1,15 +1,12 @@
-def tl_tr_bl_br(random):
-	def takeSecond(elem):
-		return elem[1]
+def tl_tr_bl_br(corner_points):
+	sort_cpts_wrt_y = sorted(corner_points, key=lambda x: x[1], reverse=True)
 
-	random.sort(reverse=True, key=takeSecond)
-	res = []
-	rep = []
-	res.append(random[0])
-	res.append(random[1])
-	rep.append(random[2])
-	rep.append(random[3])
-	res.sort(reverse=True, key=lambda x: int(x[0]))
-	rep.sort(reverse=True, key=lambda x: int(x[0]))
-	final = [res[0], res[1], rep[0], rep[1]]
-	return final
+	upper_cpts = sort_cpts_wrt_y[:2]
+	bottom_cpts = sort_cpts_wrt_y[2:]
+
+	sort_upper_cpts_wrt_x = sorted(upper_cpts, key=lambda x: x[0], reverse=True)
+	sort_bottom_cpts_wrt_x = sorted(bottom_cpts, key=lambda x: x[0], reverse=True)
+
+	corner_points_in_tl_tr_bl_br_order = sort_upper_cpts_wrt_x + sort_bottom_cpts_wrt_x
+
+	return corner_points_in_tl_tr_bl_br_order

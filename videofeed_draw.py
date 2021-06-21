@@ -98,9 +98,15 @@ class Freecom:
 	def add_color_to_frame(self, frame):
 		mask, color_masked = self.masker.show_masked_frame(frame)
 		mask_bgr = cv.cvtColor(mask, cv.COLOR_GRAY2BGR)
-		colored_frame = cv.bitwise_and(mask_bgr, self.color_frame, mask=mask)
 
-		return colored_frame
+		cache_frame_grey = cv.cvtColor(self.cache_frame, cv.COLOR_BGR2GRAY)
+		ret, cache_frame_mask = cv.threshold(cache_frame_grey, 10, 255, cv.THRESH_BINARY)
+		not_cached = cv.bitwise_not(cache_frame_mask)
+
+		colored_frame = cv.bitwise_and(mask_bgr, self.color_frame, mask=not_cached)
+		frame_with_new_color = cv.add(colored_frame, self.cache_frame)
+
+		return frame_with_new_color
 
 	def show_frame(self, frame, name="Zoomferous"):
 		cv.imshow(name, frame)
@@ -108,7 +114,9 @@ class Freecom:
 
 	def change_ink_color(self, color):
 		self.cache_frame = self.current_frame_in_window
-		if color == 'r':
+		if color == 'w':
+			self.color_frame[:] = [255, 255, 255]
+		elif color == 'r':
 			self.color_frame[:] = [0, 0, 255]
 		elif color == 'b':
 			self.color_frame[:] = [255, 0, 0] 

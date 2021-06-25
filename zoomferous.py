@@ -24,6 +24,12 @@ class Core:
 		self.masker = Mask_from_skimage()
 
 	def create_videocapture_object(self):
+		"""Returns a videoCapture object.
+
+		Video capture object is used to obtain frames form the video
+		camera. Provide camera-id to choose different camera (default is
+		primary webcam of device)
+		"""
 		cap = cv.VideoCapture(self.cid)
 		if not cap.isOpened():
 			print("Cannot open camera")
@@ -38,6 +44,17 @@ class Core:
 		return int(self.cap.get(cv.CAP_PROP_FRAME_WIDTH))
 
 	def run_zoomferous(self):
+		"""Starting point for Zoomferous operations
+
+		After creating a videoCapture object call this method inside a
+		`while True` block. This method first checks if the four corner
+		points are selected. If number of corner points are less than 4
+		the method for overlaying the selected points as red-rings on
+		top of the frame is called. If 4 corner points are selected, the
+		method for obtainig the transformed frame is called. This method
+		returns a greyscale image. The next method adds color to this
+		frame.
+		"""
 		self.frame = self.get_camera_frame()
 
 		if len(self.corner_points_cords) < 4:
@@ -48,6 +65,12 @@ class Core:
 			self.show_frame(colored_frame)
 
 	def test_run_zoomferous(self, image_source):
+		"""Tests use this method instead for `run_zoomferous`.
+
+		Instead of using the videoCapture object the tests are run on
+		images saved in tests/images. During tests use `q` to run next
+		test.
+		"""
 		self.frame = cv.imread(image_source)
 
 		cv.imshow('feed', self.frame)
@@ -57,6 +80,7 @@ class Core:
 		wait = cv.waitKey(0)
 
 	def get_camera_frame(self):
+		"""Returns frame from provided VideoCapture object"""
 		ret, frame = self.cap.read()
 
 		if not ret:
@@ -65,20 +89,32 @@ class Core:
 		return frame
 
 	def create_blank_overlay(self, height, width):
+		"""Returns a black frame of specified height and width."""
 		return np.zeros((height, width, 3), np.uint8)
 
 	def selecting_corner_points(self):
+		"""This method is called when the selected number of corner
+		points is less than 4. Mouse binding for selecting the points
+		is also set here.
+		"""
 		frame_with_corner_points = self.make_frame_with_selected_corner_points()
 		self.show_frame(frame_with_corner_points)
 		cv.setMouseCallback('Zoomferous', self.draw_corner_points)
 
 	def draw_corner_points(self, event, x, y, flags, param):
+		"""On mouse click event the co-ordinates of the mouse pointer
+		is stored. A red-ring is drawn on a blank frame at the same
+		co-ordinates.
+		"""
 		if event == cv.EVENT_LBUTTONDOWN:
 			print(f'drawing point at {x},{y}')
 			self.corner_points_cords.append([x, y])
 			cv.circle(self.corner_points, (x, y), 10, (0, 0, 255), 3)
 
 	def make_frame_with_selected_corner_points(self):
+		"""The frame with selected corner points as red-rings is
+		overlayed on top of the frame and returned.
+		"""
 		corner_points_mask = cv.inRange(self.corner_points, np.array([0,0,254]), np.array([0,0,256]))
 		inv_corner_points_mask = cv.bitwise_not(corner_points_mask)
 		frame_without_corner_points = cv.bitwise_and(self.frame, self.frame, mask=inv_corner_points_mask)
@@ -87,6 +123,11 @@ class Core:
 		return frame_with_corner_points
 
 	def make_transformed_frame(self):
+		"""Returns frame after perspectve wraping.
+
+		The given frame with the corner points is transformed to get the
+		view when the camera is facing directly above the workspace.
+		"""
 		sorted_corner_points_cords = quadrilateral_sort.tl_tr_bl_br(self.corner_points_cords)
 		pts1 = np.float32(sorted_corner_points_cords)
 		pts2 = np.float32([[0, 0], [self.cam_width, 0], [0, self.cam_height], [self.cam_width, self.cam_height]])
@@ -96,6 +137,11 @@ class Core:
 		return transformed_frame
 
 	def add_color_to_frame(self, frame):
+		"""Returns colored frame from greyscale image
+
+		The input image is is bitwise added with a blank frame with a
+		single solid color.
+		"""
 		mask, color_masked = self.masker.show_masked_frame(frame)
 		mask_bgr = cv.cvtColor(mask, cv.COLOR_GRAY2BGR)
 		colored_frame = cv.bitwise_and(mask_bgr, self.color_frame, mask=mask)
@@ -107,7 +153,7 @@ class Core:
 		self.current_frame_in_window = frame
 
 	def change_ink_color(self, color):
-		self.cache_frame = self.current_frame_in_window
+		"""Sets the blank frame with a single solid color"""
 		if color == 'w':
 			self.color_frame[:] = [255, 255, 255]
 		elif color == 'r':
@@ -118,12 +164,20 @@ class Core:
 			self.color_frame[:] = [0, 255, 0]
 
 	def save_frame(self, name=None):
+		"""Saves frame in working directory.
+
+		Default file name is ascii Date-time. Optional to provide file
+		name and file format.
+		"""
 		if name is None:
 			name = current_time() + '.png'
 		print(f"Saving frame as {name}")
 		cv.imwrite(name, self.current_frame_in_window)
 
 class Mask:
+	"""This class holds the structure for masking. Inherit this class
+	and provide the logic in `show_masked_frame` method.
+	"""
 	def __init__(self):
 		self.frame = None
 		self.ink_color = None
@@ -135,6 +189,11 @@ class Mask:
 
 
 class Mask_from_ink_color(Mask):
+	"""Mask using IN-RANGE technique
+
+	The content from frame is masked by choosing pixels only which lie
+	in the provided range.
+	"""
 	def __init__(self):
 		self.lower_color = [110,50,50]
 		self.upper_color = [130,255,255]
@@ -156,6 +215,10 @@ class Mask_from_ink_color(Mask):
 		return mask, masked_frame
 
 class Mask_from_skimage(Mask):
+	"""Mask using SAUVOLA_THRESHOLD technique
+
+	The provided frame is fed to the scikit image library's sauvola
+	algorithm"""
 	def show_masked_frame(self, frame):
 		warped = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 

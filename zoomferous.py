@@ -109,7 +109,7 @@ class Core:
 	def change_ink_color(self, color):
 		self.cache_frame = self.current_frame_in_window
 		if color == 'w':
-			self.color_frame[:] = [0, 0, 255]
+			self.color_frame[:] = [255, 255, 255]
 		elif color == 'r':
 			self.color_frame[:] = [0, 0, 255]
 		elif color == 'b':

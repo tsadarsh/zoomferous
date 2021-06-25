@@ -1,5 +1,5 @@
 import cv2 as cv
-import sys
+from sys import exit
 
 class Key_Q:
 	def __init__(self, app):
@@ -19,4 +19,4 @@ class Key_Q:
 	def quit_zoomferous(self):
 		self.app.cap.release()
 		cv.destroyAllWindows()
-		sys.exit()
+		exit()

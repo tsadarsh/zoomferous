@@ -1,3 +1,4 @@
+from sys import exit
 import numpy as np
 import cv2 as cv
 from skimage.filters import threshold_sauvola
@@ -8,42 +9,51 @@ import quadrilateral_sort
 
 
 class Core:
-	def __init__(self, cid=0):
-		self.cid = cid
+	def __init__(self):
+		self.cap = None
 		self.frame = None
 		self.transformed_frame = None
 		self.current_frame_in_window = None
-		self.cap = self.create_videocapture_object()
-		self.cam_height = self.get_camera_height()
-		self.cam_width = self.get_camera_width()
-		self.cache_frame = self.create_blank_overlay(self.cam_height, self.cam_width)
-		self.color_frame = self.create_blank_overlay(self.cam_height, self.cam_width)
-		self.color_frame[:] = [255, 255, 255]
+		self.cam_height = None
+		self.cam_width = None
+		self.color_frame = None
 		self.corner_points_cords = []
-		self.corner_points = self.create_blank_overlay(self.cam_height, self.cam_width)
+		self.corner_points = None
 		self.masker = Mask_from_skimage()
 
-	def create_videocapture_object(self):
+	def VideoCapture(self, cid=0):
 		"""Returns a videoCapture object.
 
 		Video capture object is used to obtain frames form the video
 		camera. Provide camera-id to choose different camera (default is
-		primary webcam of device)
+		primary webcam of device).
 		"""
-		cap = cv.VideoCapture(self.cid)
+		cap = cv.VideoCapture(cid)
 		if not cap.isOpened():
 			print("Cannot open camera")
 			exit()
 
+		self.__update_parameters(cap)
+
 		return cap
 
-	def get_camera_height(self):
-		return int(self.cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+	def __update_parameters(self, cap):
+		self.cap = cap
+		self.cam_height = self.get_camera_height(cap)
+		self.cam_width = self.get_camera_width(cap)
+		self.color_frame = self.create_blank_overlay(
+			self.cam_height, self.cam_width)
+		self.color_frame[:] = [255, 255, 255]
+		self.corner_points = self.create_blank_overlay(
+			self.cam_height, self.cam_width)
 
-	def get_camera_width(self):
-		return int(self.cap.get(cv.CAP_PROP_FRAME_WIDTH))
+	def get_camera_height(self, cap):
+		return int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
 
-	def run_zoomferous(self):
+	def get_camera_width(self, cap):
+		return int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
+
+	def run_zoomferous(self, cap):
 		"""Starting point for Zoomferous operations
 
 		After creating a videoCapture object call this method inside a
@@ -55,13 +65,17 @@ class Core:
 		returns a greyscale image. The next method adds color to this
 		frame.
 		"""
-		self.frame = self.get_camera_frame()
+		self.frame = self.get_camera_frame(cap)
 
 		if len(self.corner_points_cords) < 4:
 			self.selecting_corner_points()
 		else:
-			transformed_frame = self.make_transformed_frame()
-			colored_frame = self.add_color_to_frame(transformed_frame)
+			transformed_frame = self.make_transformed_frame(
+				self.frame, self.corner_points_cords,
+				self.cam_height, self.cam_width)
+			masked_frame = self.masker.show_masked_frame(transformed_frame)
+			colored_frame = self.add_color_to_frame(
+				masked_frame, self.color_frame)
 			self.show_frame(colored_frame)
 
 	def test_run_zoomferous(self, image_source):
@@ -79,9 +93,9 @@ class Core:
 
 		wait = cv.waitKey(0)
 
-	def get_camera_frame(self):
+	def get_camera_frame(self, cap):
 		"""Returns frame from provided VideoCapture object"""
-		ret, frame = self.cap.read()
+		ret, frame = cap.read()
 
 		if not ret:
 			print("Can't recieve frame..")
@@ -97,7 +111,8 @@ class Core:
 		points is less than 4. Mouse binding for selecting the points
 		is also set here.
 		"""
-		frame_with_corner_points = self.make_frame_with_selected_corner_points()
+		frame_with_corner_points = self.make_frame_with_selected_corner_points(
+			self.frame, self.corner_points)
 		self.show_frame(frame_with_corner_points)
 		cv.setMouseCallback('Zoomferous', self.draw_corner_points)
 
@@ -111,40 +126,39 @@ class Core:
 			self.corner_points_cords.append([x, y])
 			cv.circle(self.corner_points, (x, y), 10, (0, 0, 255), 3)
 
-	def make_frame_with_selected_corner_points(self):
+	def make_frame_with_selected_corner_points(self, frame, corner_points):
 		"""The frame with selected corner points as red-rings is
 		overlayed on top of the frame and returned.
 		"""
-		corner_points_mask = cv.inRange(self.corner_points, np.array([0,0,254]), np.array([0,0,256]))
+		corner_points_mask = cv.inRange(corner_points, np.array([0,0,254]), np.array([0,0,256]))
 		inv_corner_points_mask = cv.bitwise_not(corner_points_mask)
-		frame_without_corner_points = cv.bitwise_and(self.frame, self.frame, mask=inv_corner_points_mask)
-		frame_with_corner_points = cv.add(frame_without_corner_points, self.corner_points)
+		frame_without_corner_points = cv.bitwise_and(frame, frame, mask=inv_corner_points_mask)
+		frame_with_corner_points = cv.add(frame_without_corner_points, corner_points)
 
 		return frame_with_corner_points
 
-	def make_transformed_frame(self):
+	def make_transformed_frame(self, frame, corner_points_cords, height, width):
 		"""Returns frame after perspectve wraping.
 
 		The given frame with the corner points is transformed to get the
 		view when the camera is facing directly above the workspace.
 		"""
-		sorted_corner_points_cords = quadrilateral_sort.tl_tr_bl_br(self.corner_points_cords)
+		sorted_corner_points_cords = quadrilateral_sort.tl_tr_bl_br(corner_points_cords)
 		pts1 = np.float32(sorted_corner_points_cords)
-		pts2 = np.float32([[0, 0], [self.cam_width, 0], [0, self.cam_height], [self.cam_width, self.cam_height]])
+		pts2 = np.float32([[0, 0], [width, 0], [0, height], [width, height]])
 		transform_frame_matrix = cv.getPerspectiveTransform(pts1, pts2)
-		transformed_frame = cv.warpPerspective(self.frame, transform_frame_matrix, (self.cam_width, self.cam_height))
+		transformed_frame = cv.warpPerspective(frame, transform_frame_matrix, (width, height))
 
 		return transformed_frame
 
-	def add_color_to_frame(self, frame):
+	def add_color_to_frame(self, frame, color_frame):
 		"""Returns colored frame from greyscale image
 
 		The input image is is bitwise added with a blank frame with a
 		single solid color.
 		"""
-		mask, color_masked = self.masker.show_masked_frame(frame)
-		mask_bgr = cv.cvtColor(mask, cv.COLOR_GRAY2BGR)
-		colored_frame = cv.bitwise_and(mask_bgr, self.color_frame, mask=mask)
+		mask_bgr = cv.cvtColor(frame, cv.COLOR_GRAY2BGR)
+		colored_frame = cv.bitwise_and(mask_bgr, color_frame, mask=frame)
 
 		return colored_frame
 
@@ -212,7 +226,7 @@ class Mask_from_ink_color(Mask):
 		mask = cv.inRange(hsv, np.array(self.lower_color), np.array(self.upper_color))
 		masked_frame = cv.bitwise_and(frame, frame, mask=mask)
 
-		return mask, masked_frame
+		return mask
 
 class Mask_from_skimage(Mask):
 	"""Mask using SAUVOLA_THRESHOLD technique
@@ -226,5 +240,4 @@ class Mask_from_skimage(Mask):
 		warped = (warped > T).astype("uint8") * 255
 		warped = cv.bitwise_not(warped)
 
-		masked_frame = None
-		return warped, masked_frame
+		return warped

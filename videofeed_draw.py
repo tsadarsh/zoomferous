@@ -108,7 +108,9 @@ class Freecom:
 
 	def change_ink_color(self, color):
 		self.cache_frame = self.current_frame_in_window
-		if color == 'r':
+		if color == 'w':
+			self.color_frame[:] = [0, 0, 255]
+		elif color == 'r':
 			self.color_frame[:] = [0, 0, 255]
 		elif color == 'b':
 			self.color_frame[:] = [255, 0, 0] 

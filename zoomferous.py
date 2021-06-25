@@ -7,7 +7,7 @@ from time import asctime as current_time
 import quadrilateral_sort
 
 
-class Freecom:
+class Core:
 	def __init__(self, cid=0):
 		self.cid = cid
 		self.frame = None

@@ -1,8 +1,8 @@
-from videofeed_draw import Freecom
+import zoomferous
 import key_bindings
 
 
-app = Freecom()
+app = zoomferous.Core()
 
 while True:
 	app.run_zoomferous()

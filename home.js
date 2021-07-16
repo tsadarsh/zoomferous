@@ -34,12 +34,12 @@ if (width < 561) {
         download.appendChild(download_display);
 
         let about = document.createElement("a");
-        about.href = "./about2.0.html"
+        about.href = "./about.html"
         let about_display = document.createTextNode("About");
         about.appendChild(about_display);
 
         let help = document.createElement("a");
-        help.href = "./help2.0.html"
+        help.href = "./help.html"
         let help_display = document.createTextNode("Help");
         help.appendChild(help_display);
 
